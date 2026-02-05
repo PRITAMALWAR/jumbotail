@@ -32,7 +32,7 @@ function escapeHtml(s) {
 }
 
 async function doSearch(q) {
-  const base = '';
+  const base = (typeof window !== 'undefined' && window.BACKEND_URL) ? window.BACKEND_URL.replace(/\/$/, '') : '';
   const url = `${base}/api/v1/search/product?query=${encodeURIComponent(q)}&limit=20`;
   statusEl.textContent = 'Searching...';
   try {

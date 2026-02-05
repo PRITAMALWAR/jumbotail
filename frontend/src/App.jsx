@@ -22,7 +22,11 @@ export default function App() {
   const [error, setError] = useState('')
   const [items, setItems] = useState([])
 
-  const api = useMemo(() => '', [])
+  const api = useMemo(() => {
+    // In dev, use Vite proxy by returning empty string. In prod, use configured backend URL.
+    const url = import.meta?.env?.VITE_BACKEND_URL
+    return (url && typeof url === 'string') ? url.replace(/\/$/, '') : ''
+  }, [])
 
   async function search(q) {
     if (!q) return
