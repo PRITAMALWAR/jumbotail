@@ -32,7 +32,7 @@ function escapeHtml(s) {
 }
 
 async function doSearch(q) {
-  const base = 'http://localhost:3000';
+  const base = '';
   const url = `${base}/api/v1/search/product?query=${encodeURIComponent(q)}&limit=20`;
   statusEl.textContent = 'Searching...';
   try {

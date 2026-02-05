@@ -22,14 +22,14 @@ export default function App() {
   const [error, setError] = useState('')
   const [items, setItems] = useState([])
 
-  const api = useMemo(() => 'http://localhost:3000', [])
+  const api = useMemo(() => '', [])
 
   async function search(q) {
     if (!q) return
     setLoading(true)
     setError('')
     try {
-      const base = api // fixed backend URL
+      const base = api // empty string => same-origin; Vite proxy forwards to backend
       const res = await fetch(`${base}/api/v1/search/product?query=${encodeURIComponent(q)}&limit=20`)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
