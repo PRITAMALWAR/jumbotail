@@ -24,8 +24,11 @@ export default function App() {
 
   const api = useMemo(() => {
     // In dev, use Vite proxy by returning empty string. In prod, use configured backend URL.
-    const url = import.meta?.env?.VITE_BACKEND_URL
-    return (url && typeof url === 'string') ? url.replace(/\/$/, '') : ''
+    const envUrl = import.meta?.env?.VITE_BACKEND_URL
+    if (envUrl && typeof envUrl === 'string') return envUrl.replace(/\/$/, '')
+    const win = typeof window !== 'undefined' ? window : undefined
+    const winUrl = win && typeof win.BACKEND_URL === 'string' ? win.BACKEND_URL : ''
+    return winUrl ? winUrl.replace(/\/$/, '') : ''
   }, [])
 
   async function search(q) {
